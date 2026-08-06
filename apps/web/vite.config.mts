@@ -13,12 +13,16 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 const APP_DIR = dirname(fileURLToPath(import.meta.url)); // <repo>/apps/web
 const REPO_ROOT = resolve(APP_DIR, '../..'); // <repo>
 
-export default defineConfig(() => {
+// EXPERIMENT: physically emit client build output into a `q/` subfolder so assets
+// are served at /q/build/ and /q/assets/ while the app itself stays at the root (/).
+const qOutput = {
+  assetFileNames: 'q/assets/[hash]-[name].[ext]',
+  entryFileNames: 'q/build/[hash].js',
+  chunkFileNames: 'q/build/[hash].qwik.js',
+};
+
+export default defineConfig(({ isSsrBuild }) => {
   return {
-    // The fix: serve client assets (and mount the preview static server) under /q/,
-    // matching the /q/build/ chunk URLs the SSR'd HTML requests. Without this,
-    // `vite preview` serves chunks at /build/ and the SSR references /q/build/ -> 404.
-    base: '/q/',
     cacheDir: resolve(REPO_ROOT, 'node_modules/.vite/apps/web'),
     root: APP_DIR,
     plugins: [
@@ -36,8 +40,15 @@ export default defineConfig(() => {
       }),
       tsconfigPaths({ root: '../../' }),
     ],
-    preview: {
-      outDir: resolve(REPO_ROOT, 'dist/apps/web/client'),
+    build: {
+      // Only relocate the CLIENT build into q/. The SSR build (build.preview,
+      // `vite build --ssr entry.preview.tsx`) must keep its stable entry name —
+      // Qwik's preview middleware looks for server/entry.preview.js, so renaming
+      // it to a hashed q/build/[hash].js would 400 the preview server.
+      rollupOptions: isSsrBuild ? {} : { output: qOutput },
+    },
+    worker: {
+      rollupOptions: { output: qOutput },
     },
   };
 });
