@@ -1,0 +1,21 @@
+{
+  "name": "qwik-nx-v2",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.11.1",
+  "scripts": {
+    "build": "nx run web:build.client",
+    "serve": "nx run web:serve",
+    "preview": "nx run web:preview"
+  },
+  "devDependencies": {
+    "@nx/vite": "23.1.0",
+    "@qwik.dev/core": "https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785",
+    "@qwik.dev/router": "https://pkg.pr.new/QwikDev/qwik/@qwik.dev/router@8785",
+    "nx": "23.1.0",
+    "typescript": "~5.9.2",
+    "vite": "^8.1.5",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

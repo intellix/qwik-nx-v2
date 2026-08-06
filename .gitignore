@@ -1,0 +1,8 @@
+node_modules
+dist
+.nx/cache
+.nx/workspace-data
+node_modules/.vite
+*.log
+.DS_Store
+tmp
