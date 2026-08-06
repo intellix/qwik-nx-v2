@@ -34,7 +34,6 @@
       "dependsOn": ["build.preview"],
       "options": {
         "buildTarget": "web:build.client",
-        "staticFilePath": "dist/apps/web/client",
         "port": 4173
       }
     }
