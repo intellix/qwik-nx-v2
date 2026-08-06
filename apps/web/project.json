@@ -12,6 +12,15 @@
         "configFile": "./apps/web/vite.config.mts"
       }
     },
+    "build.preview": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build.client"],
+      "outputs": ["{workspaceRoot}/dist/apps/web/server"],
+      "options": {
+        "command": "vite build --ssr apps/web/src/entry.preview.tsx -c apps/web/vite.config.mts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
     "serve": {
       "executor": "@nx/vite:dev-server",
       "options": {
@@ -22,6 +31,7 @@
     },
     "preview": {
       "executor": "@nx/vite:preview-server",
+      "dependsOn": ["build.preview"],
       "options": {
         "buildTarget": "web:build.client",
         "staticFilePath": "dist/apps/web/client",
