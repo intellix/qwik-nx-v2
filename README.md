@@ -84,6 +84,34 @@ pnpm nx run web:preview    # builds SSR + client, serves at http://localhost:417
 > If a rebuild ever misbehaves, run `pnpm nx reset` (not just `rm -rf .nx/cache`) —
 > a stale Nx daemon can otherwise 500 the SSR `build.preview` step on a missing manifest.
 
+## Production build — run from `dist` with plain `node`
+
+`preview` uses Vite's dev/preview server. To exercise the *real* production server,
+there's a standalone Node entry ([apps/web/src/entry.node-server.tsx](apps/web/src/entry.node-server.tsx))
+bundled to `dist/apps/web/server/entry.node-server.js` and run with `node` — no Vite,
+no Nx at runtime:
+
+```bash
+pnpm build      # nx run web:build → build.client + build.server (SSR node bundle)
+pnpm start      # node dist/apps/web/server/entry.node-server.js  (PORT=3000 by default)
+```
+
+Then `curl http://localhost:3000/` and `/about/` render (200), and the assets under
+`/q/build/*` and `/q/assets/*` serve (200) straight from `dist/apps/web/client`.
+
+**The `/q/` gotcha that only bites the real server:** Qwik's Node middleware decides
+what to serve as a static file via `isStaticPath`, which only treats `/build/*` and
+`/assets/*` (plus `globalThis.__QWIK_BUILD_DIR__`/`__QWIK_ASSETS_DIR__`, defaulting to
+those) as static. Since we relocated assets to `/q/`, the entry sets those globals so
+the server serves them instead of 404ing:
+
+```ts
+(globalThis as { __QWIK_BUILD_DIR__?: string }).__QWIK_BUILD_DIR__ = 'q/build';
+(globalThis as { __QWIK_ASSETS_DIR__?: string }).__QWIK_ASSETS_DIR__ = 'q/assets';
+```
+
+`vite preview` hides this because it serves any file by path; the Node server does not.
+
 ## Stack
 
 - Nx 23.1.0 + @nx/vite, pnpm, Vite 8

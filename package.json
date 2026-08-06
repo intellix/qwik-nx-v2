@@ -5,9 +5,10 @@
   "type": "module",
   "packageManager": "pnpm@10.11.1",
   "scripts": {
-    "build": "nx run web:build.client",
+    "build": "nx run web:build",
     "serve": "nx run web:serve",
-    "preview": "nx run web:preview"
+    "preview": "nx run web:preview",
+    "start": "node dist/apps/web/server/entry.node-server.js"
   },
   "devDependencies": {
     "@nx/vite": "23.1.0",
