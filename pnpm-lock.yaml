@@ -10,13 +10,16 @@ importers:
     devDependencies:
       '@nx/vite':
         specifier: 23.1.0
-        version: 23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)(typescript@5.9.3)(vite@8.2.0(yaml@2.9.0))
+        version: 23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)(typescript@5.9.3)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))
       '@qwik.dev/core':
         specifier: https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785
-        version: https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(yaml@2.9.0))
+        version: https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))
       '@qwik.dev/router':
         specifier: https://pkg.pr.new/QwikDev/qwik/@qwik.dev/router@8785
-        version: https://pkg.pr.new/QwikDev/qwik/@qwik.dev/router@8785(@qwik.dev/core@https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(yaml@2.9.0)))(typescript@5.9.3)(vite@8.2.0(yaml@2.9.0))
+        version: https://pkg.pr.new/QwikDev/qwik/@qwik.dev/router@8785(@qwik.dev/core@https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0)))(@types/node@22.20.1)(typescript@5.9.3)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))
+      '@types/node':
+        specifier: ^22.20.1
+        version: 22.20.1
       nx:
         specifier: 23.1.0
         version: 23.1.0
@@ -25,10 +28,10 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^8.1.5
-        version: 8.2.0(yaml@2.9.0)
+        version: 8.2.0(@types/node@22.20.1)(yaml@2.9.0)
       vite-tsconfig-paths:
         specifier: ^5.1.4
-        version: 5.1.4(typescript@5.9.3)(vite@8.2.0(yaml@2.9.0))
+        version: 5.1.4(typescript@5.9.3)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))
 
 packages:
 
@@ -1015,6 +1018,9 @@ packages:
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
+
+  '@types/node@22.20.1':
+    resolution: {integrity: sha512-EANqOCF9QFyra+4pfxUcX9STKJpCLjMbObVzljIJomAWSnuSIEAvyzEU53GaajbXJEgdh0iEcPL+DGvpUd4k1Q==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -2279,6 +2285,9 @@ packages:
   ufo@1.6.4:
     resolution: {integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==}
 
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
+
   unicode-canonical-property-names-ecmascript@2.0.1:
     resolution: {integrity: sha512-dA8WbNeb2a6oQzAQ55YlT5vQAWGV9WXOsi3SskE3bcCdM0P4SDd+24zS/OCacdRq5BkdsRj9q3Pg6YyQoxIGqg==}
     engines: {node: '>=4'}
@@ -3422,11 +3431,11 @@ snapshots:
   '@nx/nx-win32-x64-msvc@23.1.0':
     optional: true
 
-  '@nx/vite@23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)(typescript@5.9.3)(vite@8.2.0(yaml@2.9.0))':
+  '@nx/vite@23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)(typescript@5.9.3)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))':
     dependencies:
       '@nx/devkit': 23.1.0(nx@23.1.0)
       '@nx/js': 23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)
-      '@nx/vitest': 23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)(typescript@5.9.3)(vite@8.2.0(yaml@2.9.0))
+      '@nx/vitest': 23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)(typescript@5.9.3)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))
       '@phenomnomnominal/tsquery': 6.2.0(typescript@5.9.3)
       ajv: 8.20.0
       enquirer: 2.3.6
@@ -3434,7 +3443,7 @@ snapshots:
       semver: 7.8.5
       tsconfig-paths: 4.2.0
       tslib: 2.8.1
-      vite: 8.2.0(yaml@2.9.0)
+      vite: 8.2.0(@types/node@22.20.1)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@nx/eslint'
@@ -3447,7 +3456,7 @@ snapshots:
       - verdaccio
       - vitest
 
-  '@nx/vitest@23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)(typescript@5.9.3)(vite@8.2.0(yaml@2.9.0))':
+  '@nx/vitest@23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)(typescript@5.9.3)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))':
     dependencies:
       '@nx/devkit': 23.1.0(nx@23.1.0)
       '@nx/js': 23.1.0(@babel/traverse@7.29.8)(nx@23.1.0)
@@ -3455,7 +3464,7 @@ snapshots:
       semver: 7.8.5
       tslib: 2.8.1
     optionalDependencies:
-      vite: 8.2.0(yaml@2.9.0)
+      vite: 8.2.0(@types/node@22.20.1)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -3489,20 +3498,20 @@ snapshots:
       esquery: 1.7.0
       typescript: 5.9.3
 
-  '@qwik.dev/core@https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(yaml@2.9.0))':
+  '@qwik.dev/core@https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))':
     dependencies:
       '@qwik.dev/optimizer': https://pkg.pr.new/QwikDev/qwik/@qwik.dev/optimizer@72d5dd0
       csstype: 3.2.3
       launch-editor: 2.14.1
       magic-string: 1.1.0
-      vite: 8.2.0(yaml@2.9.0)
+      vite: 8.2.0(@types/node@22.20.1)(yaml@2.9.0)
 
   '@qwik.dev/optimizer@https://pkg.pr.new/QwikDev/qwik/@qwik.dev/optimizer@72d5dd0': {}
 
-  '@qwik.dev/router@https://pkg.pr.new/QwikDev/qwik/@qwik.dev/router@8785(@qwik.dev/core@https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(yaml@2.9.0)))(typescript@5.9.3)(vite@8.2.0(yaml@2.9.0))':
+  '@qwik.dev/router@https://pkg.pr.new/QwikDev/qwik/@qwik.dev/router@8785(@qwik.dev/core@https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0)))(@types/node@22.20.1)(typescript@5.9.3)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))':
     dependencies:
       '@mdx-js/mdx': 3.1.1
-      '@qwik.dev/core': https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(yaml@2.9.0))
+      '@qwik.dev/core': https://pkg.pr.new/QwikDev/qwik/@qwik.dev/core@8785(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))
       '@standard-schema/spec': 1.1.0
       '@types/mdx': 2.0.14
       estree-util-value-to-estree: 3.5.0
@@ -3523,8 +3532,8 @@ snapshots:
       unist-util-visit: 5.1.0
       valibot: 1.4.2(typescript@5.9.3)
       vfile: 6.0.3
-      vite: 8.2.0(yaml@2.9.0)
-      vite-imagetools: 10.0.1(vite@8.2.0(yaml@2.9.0))
+      vite: 8.2.0(@types/node@22.20.1)(yaml@2.9.0)
+      vite-imagetools: 10.0.1(@types/node@22.20.1)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0))
       yaml: 2.9.0
       zod: 4.4.3
     transitivePeerDependencies:
@@ -3614,6 +3623,10 @@ snapshots:
   '@types/mdx@2.0.14': {}
 
   '@types/ms@2.1.0': {}
+
+  '@types/node@22.20.1':
+    dependencies:
+      undici-types: 6.21.0
 
   '@types/parse-json@4.0.2': {}
 
@@ -5202,7 +5215,7 @@ snapshots:
 
   set-cookie-parser@3.1.2: {}
 
-  sharp@0.35.3:
+  sharp@0.35.3(@types/node@22.20.1):
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
@@ -5233,6 +5246,7 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.3
       '@img/sharp-win32-ia32': 0.35.3
       '@img/sharp-win32-x64': 0.35.3
+      '@types/node': 22.20.1
 
   shell-quote@1.10.0: {}
 
@@ -5333,6 +5347,8 @@ snapshots:
 
   ufo@1.6.4: {}
 
+  undici-types@6.21.0: {}
+
   unicode-canonical-property-names-ecmascript@2.0.1: {}
 
   unicode-match-property-ecmascript@2.0.0:
@@ -5403,28 +5419,28 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite-imagetools@10.0.1(vite@8.2.0(yaml@2.9.0)):
+  vite-imagetools@10.0.1(@types/node@22.20.1)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0)):
     dependencies:
       '@rollup/pluginutils': 5.4.0
       imagetools-core: 10.0.0
-      sharp: 0.35.3
-      vite: 8.2.0(yaml@2.9.0)
+      sharp: 0.35.3(@types/node@22.20.1)
+      vite: 8.2.0(@types/node@22.20.1)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
 
-  vite-tsconfig-paths@5.1.4(typescript@5.9.3)(vite@8.2.0(yaml@2.9.0)):
+  vite-tsconfig-paths@5.1.4(typescript@5.9.3)(vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0)):
     dependencies:
       debug: 4.4.3(supports-color@7.2.0)
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@5.9.3)
     optionalDependencies:
-      vite: 8.2.0(yaml@2.9.0)
+      vite: 8.2.0(@types/node@22.20.1)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@8.2.0(yaml@2.9.0):
+  vite@8.2.0(@types/node@22.20.1)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.5
@@ -5432,6 +5448,7 @@ snapshots:
       rolldown: 1.2.3
       tinyglobby: 0.2.17
     optionalDependencies:
+      '@types/node': 22.20.1
       fsevents: 2.3.3
       yaml: 2.9.0
 
