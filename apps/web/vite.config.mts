@@ -13,12 +13,23 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 const APP_DIR = dirname(fileURLToPath(import.meta.url)); // <repo>/apps/web
 const REPO_ROOT = resolve(APP_DIR, '../..'); // <repo>
 
-// EXPERIMENT: physically emit client build output into a `q/` subfolder so assets
-// are served at /q/build/ and /q/assets/ while the app itself stays at the root (/).
-const qOutput = {
+// Physically emit build output into a `q/` subfolder so assets are served at
+// /q/build/ and /q/assets/ while the app itself stays at the root (/).
+//
+// Client build: relocate entry chunks, lazy chunks, AND assets.
+const clientOutput = {
   assetFileNames: 'q/assets/[hash]-[name].[ext]',
   entryFileNames: 'q/build/[hash].js',
   chunkFileNames: 'q/build/[hash].qwik.js',
+};
+// SSR build: relocate ONLY assets. `?url` imports (mp3, images, …) are resolved
+// again during the SSR build and their URLs get baked into the server-rendered
+// HTML — without this they'd point at the default /assets/ and 404, since the
+// files only physically exist under the client's /q/assets/. Entry/chunk names
+// stay at their defaults so the SSR entry keeps a stable name
+// (entry.node-server.js / entry.preview.js), not a hashed q/build/[hash].js.
+const ssrOutput = {
+  assetFileNames: 'q/assets/[hash]-[name].[ext]',
 };
 
 export default defineConfig(({ isSsrBuild }) => {
@@ -41,14 +52,10 @@ export default defineConfig(({ isSsrBuild }) => {
       tsconfigPaths({ root: '../../' }),
     ],
     build: {
-      // Only relocate the CLIENT build into q/. The SSR build (build.preview,
-      // `vite build --ssr entry.preview.tsx`) must keep its stable entry name —
-      // Qwik's preview middleware looks for server/entry.preview.js, so renaming
-      // it to a hashed q/build/[hash].js would 400 the preview server.
-      rollupOptions: isSsrBuild ? {} : { output: qOutput },
+      rollupOptions: { output: isSsrBuild ? ssrOutput : clientOutput },
     },
     worker: {
-      rollupOptions: { output: qOutput },
+      rollupOptions: { output: clientOutput },
     },
   };
 });

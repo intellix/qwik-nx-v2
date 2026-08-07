@@ -24,19 +24,23 @@ the URL path — no load-balancer rewrite needed, and the app itself stays at `/
 In `apps/web/vite.config.mts`:
 
 ```ts
-const qOutput = {
+// Client build: relocate entry chunks, lazy chunks, AND assets.
+const clientOutput = {
   assetFileNames: 'q/assets/[hash]-[name].[ext]',
   entryFileNames: 'q/build/[hash].js',
   chunkFileNames: 'q/build/[hash].qwik.js',
+};
+// SSR build: relocate ONLY assets, keep default entry/chunk names.
+const ssrOutput = {
+  assetFileNames: 'q/assets/[hash]-[name].[ext]',
 };
 
 export default defineConfig(({ isSsrBuild }) => ({
   // ...
   build: {
-    // Client only — see the SSR caveat below.
-    rollupOptions: isSsrBuild ? {} : { output: qOutput },
+    rollupOptions: { output: isSsrBuild ? ssrOutput : clientOutput },
   },
-  worker: { rollupOptions: { output: qOutput } },
+  worker: { rollupOptions: { output: clientOutput } },
 }));
 ```
 
@@ -45,13 +49,25 @@ Files now land at `dist/apps/web/client/q/build/*.qwik.js` and
 so with `q:base="/build/"` the browser resolves `/build/../q/build/x.js` →
 `/q/build/x.js`. Serving from root, that's exactly where the file is → **200**.
 
-Three caveats this example bakes in, each of which can independently break preview:
+Four caveats this example bakes in, each of which can independently break the app:
 
-1. **Gate the rename to the client build (`isSsrBuild ? {} : …`).** The same config
-   drives the SSR build (`build.preview`, `vite build --ssr entry.preview.tsx`).
-   Applying `entryFileNames: 'q/build/[hash].js'` there renames `entry.preview.js`
+1. **Keep the SSR entry name stable — but still relocate SSR assets.** The same config
+   drives the SSR build (`build.server`/`build.preview`, `vite build --ssr entry.*.tsx`).
+   Applying `entryFileNames: 'q/build/[hash].js'` there would rename `entry.preview.js`
    to a hashed name, and Qwik's preview middleware — which looks for
    `server/entry.preview.js` — returns **400** ("Unable to find output … entry.preview").
+   So the SSR build overrides **only `assetFileNames`** (`ssrOutput`), not the entry/chunk
+   names. See the asset caveat below for *why the SSR build needs `assetFileNames` at all*.
+
+1b. **`?url` assets must be relocated in the SSR build too.** An `import sound from
+   './sound.mp3?url'` is resolved during **both** the client and SSR builds, and the
+   SSR-resolved URL is what gets baked into the **server-rendered HTML**. If the SSR
+   build uses default asset naming, that URL is `/assets/…mp3` while the file only
+   physically exists at the client's `/q/assets/…mp3` → **404 on first paint** (before
+   hydration swaps in the client value). This is subtle: small assets under Vite's
+   `assetsInlineLimit` (4 KB) inline as `data:` URIs and hide the bug — you only see it
+   with a larger asset. `apps/web/src/routes/about/` demonstrates both (a small inlined
+   SVG and a larger emitted MP3).
 
 2. **`preview` needs the SSR bundle.** `web:preview` `dependsOn` a `build.preview`
    target (`vite build --ssr apps/web/src/entry.preview.tsx`) that produces
