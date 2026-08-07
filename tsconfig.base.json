@@ -10,6 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "paths": {}
+    "paths": {
+      "@qwik-nx-v2/sounds": ["libs/sounds/src/index.ts"]
+    }
   }
 }

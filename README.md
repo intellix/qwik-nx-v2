@@ -66,8 +66,15 @@ Four caveats this example bakes in, each of which can independently break the ap
    physically exists at the client's `/q/assets/…mp3` → **404 on first paint** (before
    hydration swaps in the client value). This is subtle: small assets under Vite's
    `assetsInlineLimit` (4 KB) inline as `data:` URIs and hide the bug — you only see it
-   with a larger asset. `apps/web/src/routes/about/` demonstrates both (a small inlined
-   SVG and a larger emitted MP3).
+   with a larger asset.
+
+   Two demos cover the common asset shapes, both verified to serve 200 from the
+   production node server:
+   - `apps/web/src/routes/about/` — assets in **server-rendered JSX** (a small inlined
+     SVG and a larger emitted MP3).
+   - `libs/sounds/` (a shared lib resolved via a tsconfig path alias) + the home route —
+     a **map of `?url` sounds used in client event handlers**, mirroring a real
+     `sounds.ts`. Every URL renders and resolves under `/q/assets/`.
 
 2. **`preview` needs the SSR bundle.** `web:preview` `dependsOn` a `build.preview`
    target (`vite build --ssr apps/web/src/entry.preview.tsx`) that produces
