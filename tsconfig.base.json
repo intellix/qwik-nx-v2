@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",
@@ -11,7 +10,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "paths": {
-      "@qwik-nx-v2/sounds": ["libs/sounds/src/index.ts"]
+      "@qwik-nx-v2/sounds": ["./libs/sounds/src/index.ts"],
+      "@qwik-nx-v2/cms": ["./libs/cms/src/index.ts"]
     }
   }
 }

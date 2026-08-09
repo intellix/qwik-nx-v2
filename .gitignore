@@ -6,3 +6,4 @@ node_modules/.vite
 *.log
 .DS_Store
 tmp
+docs/superpowers/

@@ -1,0 +1,170 @@
+import { component$ } from '@qwik.dev/core';
+import { routeLoader$, type DocumentHead, type DocumentHeadProps } from '@qwik.dev/router';
+import { Story } from '../../components/cms-core/story';
+import type { CmsStory } from '../../components/cms-core/cms.types';
+
+export const useStory = routeLoader$<CmsStory | undefined>((event) => {
+  const pathname = event.url.pathname;
+  const stressBody = [
+      { id: 100, component: 'stress-1', data: { label: 'S1', count: 0 } },
+      { id: 101, component: 'stress-2', data: { label: 'S2', count: 1 } },
+      { id: 102, component: 'stress-3', data: { label: 'S3', count: 2 } },
+      { id: 103, component: 'stress-4', data: { label: 'S4', count: 3 } },
+      { id: 104, component: 'stress-5', data: { label: 'S5', count: 4 } },
+      { id: 105, component: 'stress-6', data: { label: 'S6', count: 5 } },
+      { id: 106, component: 'stress-7', data: { label: 'S7', count: 6 } },
+      { id: 107, component: 'stress-8', data: { label: 'S8', count: 7 } },
+      { id: 108, component: 'stress-9', data: { label: 'S9', count: 8 } },
+      { id: 109, component: 'stress-10', data: { label: 'S10', count: 9 } },
+      { id: 110, component: 'stress-11', data: { label: 'S11', count: 10 } },
+      { id: 111, component: 'stress-12', data: { label: 'S12', count: 11 } },
+      { id: 112, component: 'stress-13', data: { label: 'S13', count: 12 } },
+      { id: 113, component: 'stress-14', data: { label: 'S14', count: 13 } },
+      { id: 114, component: 'stress-15', data: { label: 'S15', count: 14 } },
+      { id: 115, component: 'stress-16', data: { label: 'S16', count: 15 } },
+      { id: 116, component: 'stress-17', data: { label: 'S17', count: 16 } },
+      { id: 117, component: 'stress-18', data: { label: 'S18', count: 17 } },
+      { id: 118, component: 'stress-19', data: { label: 'S19', count: 18 } },
+      { id: 119, component: 'stress-20', data: { label: 'S20', count: 19 } },
+      { id: 120, component: 'stress-21', data: { label: 'S21', count: 20 } },
+      { id: 121, component: 'stress-22', data: { label: 'S22', count: 21 } },
+      { id: 122, component: 'stress-23', data: { label: 'S23', count: 22 } },
+      { id: 123, component: 'stress-24', data: { label: 'S24', count: 23 } },
+      { id: 124, component: 'stress-25', data: { label: 'S25', count: 24 } },
+      { id: 125, component: 'stress-26', data: { label: 'S26', count: 25 } },
+      { id: 126, component: 'stress-27', data: { label: 'S27', count: 26 } },
+      { id: 127, component: 'stress-28', data: { label: 'S28', count: 27 } },
+      { id: 128, component: 'stress-29', data: { label: 'S29', count: 28 } },
+      { id: 129, component: 'stress-30', data: { label: 'S30', count: 29 } },
+      { id: 130, component: 'stress-31', data: { label: 'S31', count: 30 } },
+      { id: 131, component: 'stress-32', data: { label: 'S32', count: 31 } },
+      { id: 132, component: 'stress-33', data: { label: 'S33', count: 32 } },
+      { id: 133, component: 'stress-34', data: { label: 'S34', count: 33 } },
+      { id: 134, component: 'stress-35', data: { label: 'S35', count: 34 } },
+      { id: 135, component: 'stress-36', data: { label: 'S36', count: 35 } },
+      { id: 136, component: 'stress-37', data: { label: 'S37', count: 36 } },
+      { id: 137, component: 'stress-38', data: { label: 'S38', count: 37 } },
+      { id: 138, component: 'stress-39', data: { label: 'S39', count: 38 } },
+      { id: 139, component: 'stress-40', data: { label: 'S40', count: 39 } },
+      { id: 140, component: 'stress-41', data: { label: 'S41', count: 40 } },
+      { id: 141, component: 'stress-42', data: { label: 'S42', count: 41 } },
+      { id: 142, component: 'stress-43', data: { label: 'S43', count: 42 } },
+      { id: 143, component: 'stress-44', data: { label: 'S44', count: 43 } },
+      { id: 144, component: 'stress-45', data: { label: 'S45', count: 44 } },
+      { id: 145, component: 'stress-46', data: { label: 'S46', count: 45 } },
+      { id: 146, component: 'stress-47', data: { label: 'S47', count: 46 } },
+      { id: 147, component: 'stress-48', data: { label: 'S48', count: 47 } },
+      { id: 148, component: 'stress-49', data: { label: 'S49', count: 48 } },
+      { id: 149, component: 'stress-50', data: { label: 'S50', count: 49 } },
+      { id: 150, component: 'stress-51', data: { label: 'S51', count: 50 } },
+      { id: 151, component: 'stress-52', data: { label: 'S52', count: 51 } },
+      { id: 152, component: 'stress-53', data: { label: 'S53', count: 52 } },
+      { id: 153, component: 'stress-54', data: { label: 'S54', count: 53 } },
+      { id: 154, component: 'stress-55', data: { label: 'S55', count: 54 } },
+      { id: 155, component: 'stress-56', data: { label: 'S56', count: 55 } },
+      { id: 156, component: 'stress-57', data: { label: 'S57', count: 56 } },
+      { id: 157, component: 'stress-58', data: { label: 'S58', count: 57 } },
+      { id: 158, component: 'stress-59', data: { label: 'S59', count: 58 } },
+      { id: 159, component: 'stress-60', data: { label: 'S60', count: 59 } },
+      { id: 160, component: 'stress-61', data: { label: 'S61', count: 60 } },
+      { id: 161, component: 'stress-62', data: { label: 'S62', count: 61 } },
+      { id: 162, component: 'stress-63', data: { label: 'S63', count: 62 } },
+      { id: 163, component: 'stress-64', data: { label: 'S64', count: 63 } },
+      { id: 164, component: 'stress-65', data: { label: 'S65', count: 64 } },
+      { id: 165, component: 'stress-66', data: { label: 'S66', count: 65 } },
+      { id: 166, component: 'stress-67', data: { label: 'S67', count: 66 } },
+      { id: 167, component: 'stress-68', data: { label: 'S68', count: 67 } },
+      { id: 168, component: 'stress-69', data: { label: 'S69', count: 68 } },
+      { id: 169, component: 'stress-70', data: { label: 'S70', count: 69 } },
+      { id: 170, component: 'stress-71', data: { label: 'S71', count: 70 } },
+      { id: 171, component: 'stress-72', data: { label: 'S72', count: 71 } },
+      { id: 172, component: 'stress-73', data: { label: 'S73', count: 72 } },
+      { id: 173, component: 'stress-74', data: { label: 'S74', count: 73 } },
+      { id: 174, component: 'stress-75', data: { label: 'S75', count: 74 } },
+      { id: 175, component: 'stress-76', data: { label: 'S76', count: 75 } },
+      { id: 176, component: 'stress-77', data: { label: 'S77', count: 76 } },
+      { id: 177, component: 'stress-78', data: { label: 'S78', count: 77 } },
+      { id: 178, component: 'stress-79', data: { label: 'S79', count: 78 } },
+      { id: 179, component: 'stress-80', data: { label: 'S80', count: 79 } },
+      { id: 180, component: 'stress-81', data: { label: 'S81', count: 80 } },
+      { id: 181, component: 'stress-82', data: { label: 'S82', count: 81 } },
+      { id: 182, component: 'stress-83', data: { label: 'S83', count: 82 } },
+      { id: 183, component: 'stress-84', data: { label: 'S84', count: 83 } },
+      { id: 184, component: 'stress-85', data: { label: 'S85', count: 84 } },
+      { id: 185, component: 'stress-86', data: { label: 'S86', count: 85 } },
+      { id: 186, component: 'stress-87', data: { label: 'S87', count: 86 } },
+      { id: 187, component: 'stress-88', data: { label: 'S88', count: 87 } },
+      { id: 188, component: 'stress-89', data: { label: 'S89', count: 88 } },
+      { id: 189, component: 'stress-90', data: { label: 'S90', count: 89 } },
+      { id: 190, component: 'stress-91', data: { label: 'S91', count: 90 } },
+      { id: 191, component: 'stress-92', data: { label: 'S92', count: 91 } },
+      { id: 192, component: 'stress-93', data: { label: 'S93', count: 92 } },
+      { id: 193, component: 'stress-94', data: { label: 'S94', count: 93 } },
+      { id: 194, component: 'stress-95', data: { label: 'S95', count: 94 } },
+      { id: 195, component: 'stress-96', data: { label: 'S96', count: 95 } },
+      { id: 196, component: 'stress-97', data: { label: 'S97', count: 96 } },
+      { id: 197, component: 'stress-98', data: { label: 'S98', count: 97 } },
+      { id: 198, component: 'stress-99', data: { label: 'S99', count: 98 } },
+      { id: 199, component: 'stress-100', data: { label: 'S100', count: 99 } },
+      { id: 200, component: 'stress-101', data: { label: 'S101', count: 100 } },
+      { id: 201, component: 'stress-102', data: { label: 'S102', count: 101 } },
+      { id: 202, component: 'stress-103', data: { label: 'S103', count: 102 } },
+      { id: 203, component: 'stress-104', data: { label: 'S104', count: 103 } },
+      { id: 204, component: 'stress-105', data: { label: 'S105', count: 104 } },
+      { id: 205, component: 'stress-106', data: { label: 'S106', count: 105 } },
+      { id: 206, component: 'stress-107', data: { label: 'S107', count: 106 } },
+      { id: 207, component: 'stress-108', data: { label: 'S108', count: 107 } },
+      { id: 208, component: 'stress-109', data: { label: 'S109', count: 108 } },
+      { id: 209, component: 'stress-110', data: { label: 'S110', count: 109 } },
+      { id: 210, component: 'stress-111', data: { label: 'S111', count: 110 } },
+      { id: 211, component: 'stress-112', data: { label: 'S112', count: 111 } },
+      { id: 212, component: 'stress-113', data: { label: 'S113', count: 112 } },
+      { id: 213, component: 'stress-114', data: { label: 'S114', count: 113 } },
+      { id: 214, component: 'stress-115', data: { label: 'S115', count: 114 } },
+      { id: 215, component: 'stress-116', data: { label: 'S116', count: 115 } },
+      { id: 216, component: 'stress-117', data: { label: 'S117', count: 116 } },
+      { id: 217, component: 'stress-118', data: { label: 'S118', count: 117 } },
+      { id: 218, component: 'stress-119', data: { label: 'S119', count: 118 } },
+      { id: 219, component: 'stress-120', data: { label: 'S120', count: 119 } },
+  ];
+  return {
+    '/stress/': { title: 'Stress', body: stressBody },
+    '/home/': {
+      title: 'Home',
+      body: [
+        { id: 1, component: 'banner', data: { image: 'home.jpg' } },
+        { id: 2, component: 'accordion', data: { title: 'Home FAQ', text: 'Meh...' } },
+        { id: 3, component: 'button', data: { text: 'Click me' } },
+      ],
+    },
+    '/about-cms/': {
+      title: 'About (CMS-rendered)',
+      body: [{ id: 4, component: 'banner', data: { image: 'about.jpg' } }],
+    },
+    '/contact/': {
+      title: 'Contact',
+      body: [
+        { id: 5, component: 'banner', data: { image: 'contact.jpg' } },
+        { id: 6, component: 'accordion', data: { title: 'Contact FAQ', text: 'Meh...' } },
+      ],
+    },
+  }[pathname];
+});
+
+export default component$(() => {
+  const story = useStory();
+  return (
+    <div>
+      <h1>{story.value?.title ?? 'No story for this path'}</h1>
+      <Story story={story} />
+    </div>
+  );
+});
+
+export const head = (props: DocumentHeadProps): DocumentHead => {
+  const story = props.resolveValue(useStory);
+  return {
+    title: story?.title ?? 'No Title',
+    meta: [{ name: 'description', content: 'Qwik v2 + Nx CMS-driven page' }],
+  };
+};

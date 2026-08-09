@@ -7,8 +7,14 @@
   "targetDefaults": {
     "@nx/vite:build": {
       "cache": true,
-      "inputs": ["default", "^default"],
-      "outputs": ["{workspaceRoot}/dist/apps/web"]
+      "inputs": [
+        "default",
+        "^default"
+      ],
+      "outputs": [
+        "{workspaceRoot}/dist/apps/web"
+      ]
     }
-  }
+  },
+  "analytics": true
 }
