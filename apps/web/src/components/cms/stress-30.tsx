@@ -1,5 +1,4 @@
 import { $, component$, useComputed$, useSignal, useStore, useTask$, useVisibleTask$ } from '@qwik.dev/core';
-import { sharedFormatter } from './shared-util';
 
 interface Stress30Props {
   label: string;
@@ -20,7 +19,6 @@ export const Stress30 = component$<Stress30Props>((props) => {
     console.log('[Stress30] task-2', local.value);
   });
 
-  const derivedA = useComputed$(() => sharedFormatter(props.count + 30));
   const derivedB = useComputed$(() => `${props.label}-${store.n}`);
 
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -53,7 +51,7 @@ export const Stress30 = component$<Stress30Props>((props) => {
   return (
     <div>
       <h3>Stress30</h3>
-      <p>{derivedA.value} / {derivedB.value}</p>
+      <p>{derivedB.value}</p>
       <button onClick$={onClick$}>inc</button>
       <button onClick$={onSelect$}>select</button>
       <button onClick$={onReset$}>reset</button>

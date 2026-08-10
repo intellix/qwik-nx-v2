@@ -91,7 +91,7 @@ export const ${name} = component$<${name}Props>((props) => {
   return (
     <div>
       <h3>${name}</h3>
-      <p>{derivedA.value} / {derivedB.value}</p>
+      <p>{derivedB.value}</p>
       <button onClick$={onClick$}>inc</button>
       <button onClick$={onSelect$}>select</button>
       <button onClick$={onReset$}>reset</button>
