@@ -1,8 +1,0 @@
-{
-  "name": "sounds",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/sounds/src",
-  "projectType": "library",
-  "tags": [],
-  "targets": {}
-}

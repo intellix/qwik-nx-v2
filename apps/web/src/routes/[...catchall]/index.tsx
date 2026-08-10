@@ -1,7 +1,7 @@
 import { component$ } from '@qwik.dev/core';
-import { routeLoader$, type DocumentHead, type DocumentHeadProps } from '@qwik.dev/router';
-import { Story } from '../../components/cms-core/story';
+import { routeLoader$ } from '@qwik.dev/router';
 import type { CmsStory } from '../../components/cms-core/cms.types';
+import { DynamicComponent } from '../../components/cms-core/dynamic-component';
 
 export const useStory = routeLoader$<CmsStory | undefined>((event) => {
   const pathname = event.url.pathname;
@@ -153,18 +153,14 @@ export const useStory = routeLoader$<CmsStory | undefined>((event) => {
 
 export default component$(() => {
   const story = useStory();
+  if (!story.value) {
+    return <div>404</div>;
+  }
+
   return (
     <div>
       <h1>{story.value?.title ?? 'No story for this path'}</h1>
-      <Story story={story} />
+      {story.value.body.map((c) => <DynamicComponent key={c.id} component={c} />)}
     </div>
   );
 });
-
-export const head = (props: DocumentHeadProps): DocumentHead => {
-  const story = props.resolveValue(useStory);
-  return {
-    title: story?.title ?? 'No Title',
-    meta: [{ name: 'description', content: 'Qwik v2 + Nx CMS-driven page' }],
-  };
-};

@@ -21,15 +21,6 @@
         "cwd": "{workspaceRoot}"
       }
     },
-    "build.server": {
-      "executor": "nx:run-commands",
-      "dependsOn": ["build.client"],
-      "outputs": ["{workspaceRoot}/dist/apps/web/server"],
-      "options": {
-        "command": "vite build --ssr apps/web/src/entry.node-server.tsx -c apps/web/vite.config.mts",
-        "cwd": "{workspaceRoot}"
-      }
-    },
     "build": {
       "executor": "nx:noop",
       "dependsOn": ["build.client", "build.server"],
