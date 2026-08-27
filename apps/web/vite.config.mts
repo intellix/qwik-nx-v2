@@ -17,11 +17,15 @@ export default defineConfig(() => {
   return {
     cacheDir: resolve(REPO_ROOT, 'node_modules/.vite/apps/web'),
     root: APP_DIR,
+    build: {
+      minify: false,
+    },
     plugins: [
       qwikCity({
         routesDir: './src/routes',
       }),
       qwikVite({
+        debug: true,
         client: {
           outDir: resolve(REPO_ROOT, 'dist/apps/web/client'),
         },
