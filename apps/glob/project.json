@@ -1,0 +1,46 @@
+{
+  "name": "glob",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/glob/src",
+  "targets": {
+    "build.client": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{workspaceRoot}/dist/apps/glob"],
+      "options": {
+        "outputPath": "./dist/apps/glob/client",
+        "configFile": "./apps/glob/vite.config.mts"
+      }
+    },
+    "build.preview": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build.client"],
+      "outputs": ["{workspaceRoot}/dist/apps/glob/server"],
+      "options": {
+        "command": "vite build --ssr apps/glob/src/entry.preview.tsx -c apps/glob/vite.config.mts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["build.client", "build.server"],
+      "outputs": ["{workspaceRoot}/dist/apps/glob"]
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "options": {
+        "buildTarget": "glob:build.client",
+        "mode": "ssr",
+        "port": 5573
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "dependsOn": ["build.preview"],
+      "options": {
+        "buildTarget": "glob:build.client",
+        "port": 4573
+      }
+    }
+  }
+}

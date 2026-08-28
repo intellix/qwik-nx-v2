@@ -12,7 +12,7 @@
         "^default"
       ],
       "outputs": [
-        "{workspaceRoot}/dist/apps/web"
+        "{workspaceRoot}/dist/{projectRoot}"
       ]
     }
   },

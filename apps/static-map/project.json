@@ -1,0 +1,46 @@
+{
+  "name": "static-map",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/static-map/src",
+  "targets": {
+    "build.client": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{workspaceRoot}/dist/apps/static-map"],
+      "options": {
+        "outputPath": "./dist/apps/static-map/client",
+        "configFile": "./apps/static-map/vite.config.mts"
+      }
+    },
+    "build.preview": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build.client"],
+      "outputs": ["{workspaceRoot}/dist/apps/static-map/server"],
+      "options": {
+        "command": "vite build --ssr apps/static-map/src/entry.preview.tsx -c apps/static-map/vite.config.mts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["build.client", "build.server"],
+      "outputs": ["{workspaceRoot}/dist/apps/static-map"]
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "options": {
+        "buildTarget": "static-map:build.client",
+        "mode": "ssr",
+        "port": 5273
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "dependsOn": ["build.preview"],
+      "options": {
+        "buildTarget": "static-map:build.client",
+        "port": 4273
+      }
+    }
+  }
+}

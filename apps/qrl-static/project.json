@@ -1,0 +1,46 @@
+{
+  "name": "qrl-static",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/qrl-static/src",
+  "targets": {
+    "build.client": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{workspaceRoot}/dist/apps/qrl-static"],
+      "options": {
+        "outputPath": "./dist/apps/qrl-static/client",
+        "configFile": "./apps/qrl-static/vite.config.mts"
+      }
+    },
+    "build.preview": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build.client"],
+      "outputs": ["{workspaceRoot}/dist/apps/qrl-static/server"],
+      "options": {
+        "command": "vite build --ssr apps/qrl-static/src/entry.preview.tsx -c apps/qrl-static/vite.config.mts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["build.client", "build.server"],
+      "outputs": ["{workspaceRoot}/dist/apps/qrl-static"]
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "options": {
+        "buildTarget": "qrl-static:build.client",
+        "mode": "ssr",
+        "port": 5373
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "dependsOn": ["build.preview"],
+      "options": {
+        "buildTarget": "qrl-static:build.client",
+        "port": 4373
+      }
+    }
+  }
+}

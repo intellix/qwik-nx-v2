@@ -1,0 +1,46 @@
+{
+  "name": "use-hook",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/use-hook/src",
+  "targets": {
+    "build.client": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{workspaceRoot}/dist/apps/use-hook"],
+      "options": {
+        "outputPath": "./dist/apps/use-hook/client",
+        "configFile": "./apps/use-hook/vite.config.mts"
+      }
+    },
+    "build.preview": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build.client"],
+      "outputs": ["{workspaceRoot}/dist/apps/use-hook/server"],
+      "options": {
+        "command": "vite build --ssr apps/use-hook/src/entry.preview.tsx -c apps/use-hook/vite.config.mts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["build.client", "build.server"],
+      "outputs": ["{workspaceRoot}/dist/apps/use-hook"]
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "options": {
+        "buildTarget": "use-hook:build.client",
+        "mode": "ssr",
+        "port": 5173
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "dependsOn": ["build.preview"],
+      "options": {
+        "buildTarget": "use-hook:build.client",
+        "port": 4173
+      }
+    }
+  }
+}

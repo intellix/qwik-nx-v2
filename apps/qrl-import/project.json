@@ -1,0 +1,46 @@
+{
+  "name": "qrl-import",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/qrl-import/src",
+  "targets": {
+    "build.client": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{workspaceRoot}/dist/apps/qrl-import"],
+      "options": {
+        "outputPath": "./dist/apps/qrl-import/client",
+        "configFile": "./apps/qrl-import/vite.config.mts"
+      }
+    },
+    "build.preview": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build.client"],
+      "outputs": ["{workspaceRoot}/dist/apps/qrl-import/server"],
+      "options": {
+        "command": "vite build --ssr apps/qrl-import/src/entry.preview.tsx -c apps/qrl-import/vite.config.mts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["build.client", "build.server"],
+      "outputs": ["{workspaceRoot}/dist/apps/qrl-import"]
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "options": {
+        "buildTarget": "qrl-import:build.client",
+        "mode": "ssr",
+        "port": 5473
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "dependsOn": ["build.preview"],
+      "options": {
+        "buildTarget": "qrl-import:build.client",
+        "port": 4473
+      }
+    }
+  }
+}
